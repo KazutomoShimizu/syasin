@@ -16,6 +16,10 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @feeds = @user.feeds
+
+    bookmarks = Bookmark.where(user_id: current_user.id).pluck(:feed_id)
+    @bookmark_list = Feed.find(bookmarks)
   end
 
   def edit

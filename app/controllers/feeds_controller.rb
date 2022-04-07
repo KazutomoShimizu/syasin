@@ -13,6 +13,7 @@ class FeedsController < ApplicationController
   def show
     @feed = Feed.find_by(id:params[:id])
     @user = User.find_by(id:@feed.user_id)
+    @bookmark = current_user.bookmarks.find_by(feed_id: @feed.id)
   end
 
   def new

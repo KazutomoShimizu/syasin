@@ -1,5 +1,5 @@
 <div style="border-radius: 1px; border: 4px dotted #ffb6c1; font-size: 100%; padding: 20px;">
-  <h1><%= @user.name %>のページ</h1>
+  <h1><strong><%= @user.name %>のページ</strong></h1>
 </div>
 
 <% if @user.image? %>
@@ -8,6 +8,14 @@
   <%= image_tag ("noimage.png") %>
 <% end %>
 
-<p>メールアドレス: <%= @user.email %></p>
+<p><strong>メールアドレス: <%= @user.email %></strong></p>
+
+<p><strong>お気に入り投稿一覧</strong></p>
+<% if @bookmark_list.present? %>
+  <% @bookmark_list.each do |feed| %>
+    <%= feed.body %>
+    <%= image_tag feed.image.url%>
+  <% end %>
+<% end %>
 
 <%= link_to "編集", edit_user_path(@user) %>

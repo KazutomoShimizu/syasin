@@ -7,9 +7,6 @@ class User < ApplicationRecord
   before_validation { email.downcase! }
   has_secure_password
   has_many :feeds
+  has_many :bookmarks, dependent: :destroy
   mount_uploader :image, ImageUploader
-
-  def alreadey_favorited?(feed)
-    self.favorites.exists?(feed_id: feed.id)
-  end
 end

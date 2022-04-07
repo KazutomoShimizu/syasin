@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_07_012801) do
+ActiveRecord::Schema.define(version: 2022_04_07_093051) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookmarks", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "feed_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["feed_id"], name: "index_bookmarks_on_feed_id"
+    t.index ["user_id", "feed_id"], name: "index_bookmarks_on_user_id_and_feed_id", unique: true
+    t.index ["user_id"], name: "index_bookmarks_on_user_id"
+  end
 
   create_table "favorites", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -43,6 +53,8 @@ ActiveRecord::Schema.define(version: 2022_04_07_012801) do
     t.text "image"
   end
 
+  add_foreign_key "bookmarks", "feeds"
+  add_foreign_key "bookmarks", "users"
   add_foreign_key "favorites", "feeds"
   add_foreign_key "favorites", "users"
   add_foreign_key "feeds", "users"
