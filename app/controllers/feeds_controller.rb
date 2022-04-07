@@ -1,5 +1,6 @@
 class FeedsController < ApplicationController
   before_action :set_feed, only: %i[ show edit update destroy ]
+  before_action :baria_user, only: [:edit, :destroy, :update]
 
   def confirm
     @feed = Feed.new(feed_params)
@@ -23,12 +24,14 @@ class FeedsController < ApplicationController
   end
 
   def edit
+    @feed = Feed.find(params[:id])
   end
 
   def create
     @feed = current_user.feeds.build(feed_params)
     respond_to do |format|
       if @feed.save
+        CompleteFeedMailer.complete_mail(current_user).deliver_later
         format.html { redirect_to feed_url(@feed), notice: "Feed was successfully created." }
         format.json { render :show, status: :created, location: @feed }
       else
@@ -66,6 +69,12 @@ class FeedsController < ApplicationController
     end
 
     def feed_params
-      params.require(:feed).permit(:image, :image_cache)
+      params.require(:feed).permit(:content, :image, :image_cache, :body)
     end
+
+    def baria_user
+    unless Feed.find(params[:id]).user.id.to_i == current_user.id
+        redirect_to feeds_path(current_user)
+    end
+   end
 end

@@ -2,4 +2,12 @@
   <h1><%= @user.name %>のページ</h1>
 </div>
 
+<% if @user.image? %>
+  <%= image_tag @user.image.url %>
+<% else %>
+  <%= image_tag ("noimage.png") %>
+<% end %>
+
 <p>メールアドレス: <%= @user.email %></p>
+
+<%= link_to "編集", edit_user_path(@user) %>

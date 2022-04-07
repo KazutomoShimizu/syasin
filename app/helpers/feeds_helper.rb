@@ -1,2 +1,15 @@
 module FeedsHelper
+  def choose_new_or_edit
+    if action_name == 'new'
+      confirm_feeds_path
+    elsif action_name == 'edit'
+      feed_path
+    end
+  end
+
+  def  choose_get_or_patch
+    if action_name == 'edit'
+      :patch
+    end
+  end
 end

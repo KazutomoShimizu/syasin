@@ -1,0 +1,15 @@
+<h1>HELLO</h1>
+<div style="border-radius: 1px; border: 4px dotted #ffb6c1; font-size: 100%; padding: 20px;">
+  <h1>Log in</h1>
+<div>
+
+<%= form_with(scope: :session, url: sessions_path, local: true) do |f| %>
+
+  <%= f.label :email %>
+  <%= f.email_field :email %>
+
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+
+  <%= f.submit "Log in" %>
+<% end %>
