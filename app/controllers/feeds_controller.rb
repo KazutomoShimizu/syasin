@@ -26,6 +26,11 @@ class FeedsController < ApplicationController
 
   def edit
     @feed = Feed.find(params[:id])
+    if @feed.user == current_user
+      render "edit"
+    else
+      redirect_to feeds_path
+    end
   end
 
   def create

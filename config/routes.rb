@@ -8,5 +8,5 @@ Rails.application.routes.draw do
     end
   end
   resources :sessions, only: [:new, :create, :destroy]
-  resources :bookmarks, only: [:create, :destroy]
+  resources :bookmarks, only: [:create, :destroy, :show]
 end

@@ -9,4 +9,9 @@ class BookmarksController < ApplicationController
     bookmark = current_user.bookmarks.find_by(id: params[:id]).destroy
     redirect_to feeds_path, notice: "#{bookmark.feed.user.name}さんの投稿をお気に入り解除しました"
   end
+
+  def show
+    bookmarks = Bookmark.where(user_id: current_user.id).pluck(:feed_id)
+    @bookmark_list = Feed.find(bookmarks)
+  end
 end

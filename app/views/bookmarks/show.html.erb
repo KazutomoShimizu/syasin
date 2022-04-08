@@ -1,0 +1,7 @@
+<p><strong>お気に入り投稿一覧</strong></p>
+<% if @bookmark_list.present? %>
+  <% @bookmark_list.each do |feed| %>
+    <%= feed.body %>
+    <%= image_tag feed.image.url%>
+  <% end %>
+<% end %>
