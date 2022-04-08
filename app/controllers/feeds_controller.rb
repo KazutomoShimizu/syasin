@@ -70,17 +70,17 @@ class FeedsController < ApplicationController
 
   private
 
-    def set_feed
-      @feed = Feed.find(params[:id])
-    end
+  def set_feed
+    @feed = Feed.find(params[:id])
+  end
 
-    def feed_params
-      params.require(:feed).permit(:content, :image, :image_cache, :body)
-    end
+  def feed_params
+    params.require(:feed).permit(:content, :image, :image_cache, :body)
+  end
 
-    def baria_user
+  def baria_user
     unless Feed.find(params[:id]).user.id.to_i == current_user.id
-        redirect_to feeds_path(current_user)
+      edirect_to feeds_path(current_user)
     end
-   end
+  end
 end
